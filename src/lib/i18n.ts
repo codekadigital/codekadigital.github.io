@@ -52,9 +52,9 @@ const es = {
   },
   about: {
     eyebrow: 'Sobre mí',
-    title: 'Técnica de día, ilustradora de siempre.',
+    title: 'Desarrolladora Full Stack con IA.',
     paragraphs: [
-      'AI Full Stack Developer especializada en construir productos digitales de principio a fin. Creo webs, e-commerce, herramientas internas y productos digitales que combinan desarrollo, IA, automatización, SEO y datos. Me gusta estar en todo el recorrido: entender el problema, pensar la solución, construirla y hacer que funcione en el mundo real.',
+      'Creo productos digitales con IA, desde la idea hasta el lanzamiento — webs, e-commerce, herramientas internas y productos que combinan desarrollo, IA, automatización, SEO y datos. Me gusta estar en todo el recorrido: entender el problema, pensar la solución, construirla y hacer que funcione en el mundo real.',
       'Trabajo con Python, PHP, Ruby, JavaScript, React y Node.js, conectando APIs e integrando IA generativa para acelerar el desarrollo, automatizar procesos y escalar operaciones digitales.',
       'Actualmente lidero el desarrollo web y la estrategia SEO en CECOP, gestionando un ecosistema internacional de sitios y productos digitales para distintos países. Cada mercado tiene sus propias necesidades, así que construyo estrategias, herramientas y soluciones adaptadas a cada contexto.',
       'Mi perfil está justo donde se encuentran producto, tecnología y negocio. Puedo construir un frontend, conectar una API, automatizar un proceso, analizar datos o pensar cómo hacer que un producto posicione y convierta mejor.',
@@ -223,9 +223,9 @@ const en: typeof es = {
   },
   about: {
     eyebrow: 'About',
-    title: 'Engineer by day, illustrator always.',
+    title: 'AI Full Stack Developer.',
     paragraphs: [
-      'AI Full Stack Developer building AI-powered digital products from idea to launch. I create websites, e-commerce, internal tools and digital products that combine development, AI, automation, SEO and data. I like being involved in the whole journey: understanding the problem, designing the solution, building it and making it work in the real world.',
+      'I build AI-powered digital products from idea to launch — websites, e-commerce, internal tools and products that combine development, AI, automation, SEO and data. I like being involved in the whole journey: understanding the problem, designing the solution, building it and making it work in the real world.',
       'I work with Python, PHP, Ruby, JavaScript, React and Node.js, connecting APIs and integrating generative AI to accelerate development, automate processes and scale digital operations.',
       'I currently lead web development and SEO strategy at CECOP, managing an international ecosystem of websites and digital products across different countries. Each market has its own needs, so I build strategies, tools and solutions tailored to each context.',
       'My profile sits right where product, technology and business meet. I can build a frontend, connect an API, automate a process, analyze data or figure out how to make a product rank and convert better.',
