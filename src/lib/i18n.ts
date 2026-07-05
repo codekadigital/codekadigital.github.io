@@ -54,9 +54,10 @@ const es = {
     eyebrow: 'Sobre mí',
     title: 'Técnica de día, ilustradora de siempre.',
     paragraphs: [
-      'Soy Karem Quiroz Molina, aunque en el mundo tech me conocen como codeka. Desarrolladora frontend y especialista en ecommerce, SEO y SEM, con años de marketing digital a las espaldas. Hoy construyo producto digital en el lab digital de Grupo CECOP, en Madrid.',
-      'Lo que me hace distinta: junto tres mundos que casi nunca se tocan. Escribo código de producción, audito SEO como una obsesa del detalle y dibujo mis propios personajes. Morcilla, mi teckel pixelada, es mi inspiración y mi compañera de teclado.',
-      'Si tu proyecto necesita rigor técnico sin perder la chispa, ya somos dos.',
+      'Desarrolladora de software full stack especializada en desarrollo web e IA aplicada. Diseño y construyo webs, e-commerce y productos digitales de principio a fin — desarrollo, automatización y analítica con Python, PHP, Ruby, JavaScript/React y Node.js — integrando IA generativa (Claude, ChatGPT, Gemini) para acelerar el desarrollo, automatizar procesos y escalar operaciones digitales en varios países.',
+      'Actualmente lidero el desarrollo web y la estrategia SEO en CECOP: un ecosistema internacional de webs con estrategias digitales específicas por país y herramientas a medida para cada asociado, siempre bajo buenas prácticas de seguridad y protección de datos (GDPR).',
+      'Perfil híbrido negocio–tecnología: frontend, APIs, CRM, analítica y estrategia digital. Busco proyectos en remoto donde la IA impulse productos con impacto real de negocio.',
+      'Y cuando no estoy programando, dibujo. Morcilla, mi teckel pixelada, es mi inspiración y mi partner.',
     ],
     factsTitle: 'Datos rápidos',
     facts: [
@@ -219,9 +220,10 @@ const en: typeof es = {
     eyebrow: 'About',
     title: 'Engineer by day, illustrator always.',
     paragraphs: [
-      'I’m Karem Quiroz Molina — codeka in the tech world. Frontend developer and ecommerce, SEO & SEM specialist with years of digital marketing behind me. These days I build digital products at Grupo CECOP’s digital lab in Madrid.',
-      'What makes me different: I bridge three worlds that rarely meet. I ship production code, audit SEO with obsessive attention to detail, and draw my own characters. Morcilla, my pixel dachshund, is my inspiration and keyboard-side companion.',
-      'If your project needs technical rigor without losing its spark, we already have something in common.',
+      'Full stack software developer specialized in web development and applied AI. I design and build websites, e-commerce and digital products end-to-end — development, automation and analytics with Python, PHP, Ruby, JavaScript/React and Node.js — integrating generative AI (Claude, ChatGPT, Gemini) to accelerate development, automate processes and scale digital operations across multiple countries.',
+      'I currently lead web development and SEO strategy at CECOP, managing an international ecosystem of websites with country-specific digital strategies and custom-built tools for each associate, always under security and data protection best practices (GDPR).',
+      'Hybrid business–technology profile: frontend, APIs, CRM, analytics and digital strategy. Looking for remote roles where AI drives products with real business impact.',
+      'And when I’m not coding, I draw. Morcilla, my pixel dachshund, is my inspiration and my partner.',
     ],
     factsTitle: 'Quick facts',
     facts: [
@@ -349,22 +351,22 @@ export const morciQuotes: Record<Lang, string[]> = {
 
 /** Tecnologías del marquee (compartidas entre idiomas) */
 export const stackItems: string[] = [
-  'TypeScript',
-  'Astro',
+  'Python',
+  'PHP',
+  'Ruby',
+  'JavaScript',
   'React',
   'Node.js',
-  'Python',
-  'Claude API',
-  'LangChain',
-  'Tailwind CSS',
-  'GSAP',
-  'PostgreSQL',
-  'Supabase',
-  'n8n',
-  'Screaming Frog',
-  'GA4 / GSC',
-  'Figma',
-  'Aseprite',
+  'REST APIs',
+  'Claude',
+  'ChatGPT',
+  'Gemini',
+  'Google AI Studio',
+  'SEO',
+  'GA4',
+  'GTM',
+  'HubSpot',
+  'CRO',
 ];
 
 const translations: Record<Lang, typeof es> = { es, en };
