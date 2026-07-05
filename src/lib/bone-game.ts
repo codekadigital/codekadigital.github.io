@@ -75,7 +75,16 @@ export class BoneGame {
 
     this.morci = new Image();
     this.morci.src = '/morcilla.webp?v=6';
-    this.morci.onload = () => (this.morciReady = true);
+    this.morci.onload = () => {
+      this.morciReady = true;
+      // repinta la pantalla de espera: si la imagen llegó después del primer
+      // drawIdle, Morcilla se quedaba como rectángulo hasta pulsar Jugar
+      if (!this.running) this.drawIdle();
+    };
+    // si el webp falla (proxy/navegador raro), cae al png
+    this.morci.onerror = () => {
+      if (this.morci.src.endsWith('.webp?v=6')) this.morci.src = '/morcilla.png?v=6';
+    };
 
     this.bindControls();
     this.resize();
