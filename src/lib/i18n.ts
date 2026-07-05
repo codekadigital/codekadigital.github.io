@@ -65,6 +65,9 @@ const es = {
       { label: 'Enfoque', value: 'IA + Web + SEO' },
       { label: 'Mascota', value: 'Morcilla 🦴' },
     ],
+    photoAlt:
+      'Karem con cascos y gafas sonriendo, con Morcilla, su teckel negra y canela, en brazos',
+    photoCaption: '~ morcilla en la vida real ~',
   },
   services: {
     eyebrow: 'Servicios',
@@ -227,6 +230,9 @@ const en: typeof es = {
       { label: 'Focus', value: 'AI + Web + SEO' },
       { label: 'Sidekick', value: 'Morcilla 🦴' },
     ],
+    photoAlt:
+      'Karem wearing headphones and glasses, smiling and holding Morcilla, her black-and-tan dachshund',
+    photoCaption: '~ morcilla in real life ~',
   },
   services: {
     eyebrow: 'Services',

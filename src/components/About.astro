@@ -17,18 +17,45 @@ const t = useTranslations(lang);
       {t.about.paragraphs.map((p: string) => <p data-reveal>{p}</p>)}
     </div>
 
-    <aside class="card h-fit p-6" data-reveal>
-      <h3 class="pixel-label mb-5 text-accent">{t.about.factsTitle}</h3>
-      <dl class="space-y-4">
-        {
-          t.about.facts.map((f: { label: string; value: string }) => (
-            <div class="flex items-baseline justify-between gap-4 border-b border-line pb-3 last:border-0 last:pb-0">
-              <dt class="text-sm text-muted">{f.label}</dt>
-              <dd class="font-display text-sm font-medium text-ink">{f.value}</dd>
-            </div>
-          ))
-        }
-      </dl>
+    <aside class="space-y-6">
+      <figure class="group" data-reveal>
+        <div class="relative overflow-hidden rounded-2xl border border-line">
+          <img
+            src="/karem-morcilla-duo.webp"
+            alt={t.about.photoAlt}
+            width="920"
+            height="1185"
+            loading="lazy"
+            class="block h-auto w-full"
+          />
+          <img
+            src="/karem-morcilla-color.webp"
+            alt=""
+            width="920"
+            height="1185"
+            loading="lazy"
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-0 block h-auto w-full opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
+          />
+        </div>
+        <figcaption class="pixel-label mt-3 text-center text-muted">
+          {t.about.photoCaption}
+        </figcaption>
+      </figure>
+
+      <div class="card h-fit p-6" data-reveal>
+        <h3 class="pixel-label mb-5 text-accent">{t.about.factsTitle}</h3>
+        <dl class="space-y-4">
+          {
+            t.about.facts.map((f: { label: string; value: string }) => (
+              <div class="flex items-baseline justify-between gap-4 border-b border-line pb-3 last:border-0 last:pb-0">
+                <dt class="text-sm text-muted">{f.label}</dt>
+                <dd class="font-display text-sm font-medium text-ink">{f.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
     </aside>
   </div>
 </section>
