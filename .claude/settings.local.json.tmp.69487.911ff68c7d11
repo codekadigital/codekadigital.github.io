@@ -49,7 +49,8 @@
       "Bash(curl -s -o /dev/null -w \"en: %{http_code}\\\\n\" https://codekadigital.github.io/en/)",
       "Bash(curl -s -o /dev/null -w \"sitemap: %{http_code}\\\\n\" https://codekadigital.github.io/sitemap-index.xml)",
       "Bash(curl -s -o /dev/null -w \"og-image: %{http_code}\\\\n\" https://codekadigital.github.io/og-image.png)",
-      "Bash(curl -s https://codekadigital.github.io/robots.txt)"
+      "Bash(curl -s https://codekadigital.github.io/robots.txt)",
+      "Bash(git -c user.name=Codeka -c user.email=karem.quiroz.m@gmail.com commit -m 'Contacto: email en Poppins para descendentes completos *)"
     ]
   }
 }
