@@ -1,0 +1,41 @@
+---
+import { Icon } from 'astro-icon/components';
+import { useTranslations, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line bg-surface">
+  <div class="mx-auto max-w-6xl px-5 py-12 md:px-8">
+    <div class="flex flex-col items-center gap-6 md:flex-row md:justify-between">
+      <div class="text-center md:text-left">
+        <p class="font-display text-lg font-bold text-ink">
+          codeka<span class="text-accent">.</span>
+        </p>
+        <p class="mt-1 text-sm text-muted">
+          © {year} · {t.footer.rights}
+        </p>
+        <p class="mt-1 text-xs text-muted">{t.footer.tagline}</p>
+      </div>
+
+      <div class="flex flex-col items-center gap-4 md:items-end">
+        <a
+          href="#hero"
+          class="flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent"
+        >
+          {t.footer.backToTop}
+          <Icon name="lucide:arrow-up" class="h-4 w-4" />
+        </a>
+        <p class="pixel-label text-muted">
+          <span class="text-accent" aria-hidden="true">🦴</span>
+          {t.footer.morciSays}
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>

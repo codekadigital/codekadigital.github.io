@@ -1,0 +1,101 @@
+---
+import { useTranslations, morciQuotes, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+  class?: string;
+}
+const { lang, class: className = '' } = Astro.props;
+const t = useTranslations(lang);
+const quotes = morciQuotes[lang];
+---
+
+<div
+  id="morci-mascot"
+  class={`relative inline-block select-none ${className}`}
+  data-quotes={JSON.stringify(quotes)}
+>
+  <div
+    class="morci-bubble pixel-label absolute -top-10 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-lg border border-accent bg-surface-2 px-3 py-2 text-ink"
+    role="status"
+    aria-live="polite"
+  >
+  </div>
+
+  <button
+    type="button"
+    class="morci-idle block cursor-pointer border-0 bg-transparent p-0"
+    aria-label={lang === 'es' ? 'Saludar a Morcilla' : 'Say hi to Morcilla'}
+  >
+    <picture>
+      <source srcset="/morcilla.webp?v=6" type="image/webp" />
+      <img
+        src="/morcilla.png?v=6"
+        alt={t.hero.morciAlt}
+        width="880"
+        height="942"
+        class="pixelated h-auto w-full drop-shadow-[0_18px_50px_rgba(245,142,177,0.18)]"
+        fetchpriority="high"
+      />
+    </picture>
+  </button>
+
+  <p class="pixel-label mt-4 text-center text-muted">{t.hero.morciLabel}</p>
+</div>
+
+<script>
+  const root = document.getElementById('morci-mascot');
+  if (root) {
+    const btn = root.querySelector<HTMLButtonElement>('button');
+    const bubble = root.querySelector<HTMLElement>('.morci-bubble');
+    const quotes: string[] = JSON.parse(root.dataset.quotes || '[]');
+    let quoteIdx = 0;
+    let bubbleTimer = 0;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const say = (text: string) => {
+      if (!bubble) return;
+      bubble.textContent = text;
+      bubble.classList.add('is-visible');
+      window.clearTimeout(bubbleTimer);
+      bubbleTimer = window.setTimeout(() => bubble.classList.remove('is-visible'), 1600);
+    };
+
+    const spawnHearts = () => {
+      if (reduced) return;
+      for (let i = 0; i < 3; i++) {
+        const h = document.createElement('span');
+        h.className = 'heart-particle';
+        h.textContent = '♥';
+        h.style.fontSize = `${14 + Math.random() * 10}px`;
+        h.style.setProperty('--hx', `${(Math.random() - 0.5) * 90}px`);
+        h.style.setProperty('--hr', `${(Math.random() - 0.5) * 40}deg`);
+        h.style.animationDelay = `${i * 90}ms`;
+        root.appendChild(h);
+        setTimeout(() => h.remove(), 1400);
+      }
+    };
+
+    // hover: teclea más rápido
+    btn?.addEventListener('pointerenter', () => {
+      if (reduced) return;
+      btn.classList.remove('morci-idle');
+      btn.classList.add('morci-fast');
+    });
+    btn?.addEventListener('pointerleave', () => {
+      btn.classList.remove('morci-fast');
+      btn.classList.add('morci-idle');
+    });
+
+    // click / tap: salto + corazones + frase
+    btn?.addEventListener('click', () => {
+      say(quotes[quoteIdx % quotes.length]);
+      quoteIdx++;
+      spawnHearts();
+      if (reduced) return;
+      btn.classList.remove('morci-jump');
+      void btn.offsetWidth; // reinicia la animación
+      btn.classList.add('morci-jump');
+    });
+  }
+</script>

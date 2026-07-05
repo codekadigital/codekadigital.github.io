@@ -1,0 +1,138 @@
+---
+import { Icon } from 'astro-icon/components';
+import { useTranslations, altPath, homePath, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const links = [
+  { href: '#about', label: t.nav.about },
+  { href: '#services', label: t.nav.services },
+  { href: '#projects', label: t.nav.projects },
+  { href: '#playground', label: t.nav.playground },
+  { href: '#contact', label: t.nav.contact },
+];
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 transition-colors duration-300 [&.is-scrolled]:bg-bg/80 [&.is-scrolled]:backdrop-blur-md [&.is-scrolled]:border-b [&.is-scrolled]:border-line"
+>
+  <nav
+    class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8"
+    aria-label={lang === 'es' ? 'Navegación principal' : 'Main navigation'}
+  >
+    <a
+      href={homePath(lang)}
+      class="font-display text-lg font-bold tracking-tight text-ink"
+      aria-label="Codeka — home"
+    >
+      codeka<span class="text-accent">.</span>
+    </a>
+
+    <div class="hidden items-center gap-7 md:flex">
+      {
+        links.map((l) => (
+          <a href={l.href} class="link-underline text-sm text-muted transition-colors hover:text-ink">
+            {l.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="flex items-center gap-2">
+      <a
+        href={altPath(lang)}
+        class="rounded-full border border-line px-3 py-1.5 font-display text-xs font-medium text-muted transition-colors hover:border-accent hover:text-accent"
+        aria-label={t.nav.langSwitch}
+      >
+        {lang === 'es' ? 'EN' : 'ES'}
+      </a>
+
+      <button
+        id="theme-toggle"
+        type="button"
+        class="grid h-9 w-9 place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"
+        aria-label={t.nav.themeToggle}
+      >
+        <Icon name="lucide:moon" class="h-4 w-4 dark-icon" />
+        <Icon name="lucide:sun" class="h-4 w-4 light-icon hidden" />
+      </button>
+
+      <button
+        id="menu-toggle"
+        type="button"
+        class="grid h-9 w-9 place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent md:hidden"
+        aria-label={t.nav.menuOpen}
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <Icon name="lucide:menu" class="h-4 w-4" />
+      </button>
+    </div>
+  </nav>
+
+  <div
+    id="mobile-menu"
+    class="hidden border-t border-line bg-bg/95 backdrop-blur-md md:hidden"
+  >
+    <div class="flex flex-col gap-1 px-5 py-4">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            class="rounded-lg px-3 py-2.5 font-display text-base text-ink transition-colors hover:bg-surface hover:text-accent"
+            data-menu-link
+          >
+            {l.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</header>
+
+<style>
+  :root[data-theme='light'] .dark-icon {
+    display: none;
+  }
+  :root[data-theme='light'] .light-icon {
+    display: block !important;
+  }
+</style>
+
+<script>
+  // Toggle de tema (persistido)
+  const btn = document.getElementById('theme-toggle');
+  btn?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const isLight = root.dataset.theme === 'light';
+    if (isLight) {
+      delete root.dataset.theme;
+      localStorage.setItem('codeka:theme', 'dark');
+    } else {
+      root.dataset.theme = 'light';
+      localStorage.setItem('codeka:theme', 'light');
+    }
+  });
+
+  // Menú móvil
+  const menuBtn = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const close = () => {
+    menu?.classList.add('hidden');
+    menuBtn?.setAttribute('aria-expanded', 'false');
+  };
+  menuBtn?.addEventListener('click', () => {
+    const isOpen = !menu?.classList.contains('hidden');
+    if (isOpen) close();
+    else {
+      menu?.classList.remove('hidden');
+      menuBtn.setAttribute('aria-expanded', 'true');
+    }
+  });
+  menu?.querySelectorAll('[data-menu-link]').forEach((a) => a.addEventListener('click', close));
+</script>

@@ -1,0 +1,44 @@
+---
+import { useTranslations, stackItems, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const half = Math.ceil(stackItems.length / 2);
+const rowA = stackItems.slice(0, half);
+const rowB = stackItems.slice(half);
+---
+
+<section id="stack" class="scroll-mt-24 border-y border-line bg-surface py-20 md:py-24">
+  <div class="mx-auto max-w-6xl px-5 md:px-8">
+    <p class="eyebrow mb-4" data-reveal>{t.stack.eyebrow}</p>
+    <h2 class="display-lg text-ink" data-reveal="lines">{t.stack.title}</h2>
+  </div>
+
+  <div class="mt-12 space-y-6" data-reveal>
+    {
+      [rowA, rowB].map((row, i) => (
+        <div class="marquee" data-direction={i === 1 ? 'reverse' : undefined}>
+          {[0, 1].map((dup) => (
+            <ul
+              class="marquee-track gap-0"
+              aria-hidden={dup === 1 ? 'true' : undefined}
+            >
+              {row.map((tech) => (
+                <li class="flex items-center whitespace-nowrap px-6 font-display text-2xl font-medium text-muted transition-colors hover:text-accent md:text-3xl">
+                  {tech}
+                  <span class="pixel-label ml-12 text-accent/50" aria-hidden="true">
+                    ✦
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</section>

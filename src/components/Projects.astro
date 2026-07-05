@@ -1,0 +1,46 @@
+---
+import { Icon } from 'astro-icon/components';
+import { useTranslations, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="projects" class="mx-auto max-w-6xl scroll-mt-24 px-5 py-24 md:px-8 md:py-32">
+  <p class="eyebrow mb-4" data-reveal>{t.projects.eyebrow}</p>
+  <h2 class="display-lg max-w-3xl text-ink" data-reveal="lines">{t.projects.title}</h2>
+
+  <div class="mt-12 grid gap-5 sm:grid-cols-2" data-reveal-group>
+    {
+      t.projects.items.map(
+        (p: { title: string; desc: string; tags: string[]; url: string }) => (
+          <article class="card group relative flex flex-col p-7" data-reveal>
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="display-md text-ink transition-colors group-hover:text-accent">
+                {p.title}
+              </h3>
+              <Icon
+                name="lucide:arrow-up-right"
+                class="h-5 w-5 shrink-0 text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+              />
+            </div>
+            <p class="mt-3 flex-1 text-sm leading-relaxed text-muted md:text-base">{p.desc}</p>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              {p.tags.map((tag) => (
+                <li class="rounded-full border border-line px-3 py-1 font-display text-xs text-muted">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+            <a href={p.url} class="absolute inset-0 rounded-2xl" aria-label={`${t.projects.visit}: ${p.title}`}>
+              <span class="sr-only">{t.projects.visit}</span>
+            </a>
+          </article>
+        )
+      )
+    }
+  </div>
+</section>

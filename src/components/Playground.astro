@@ -1,0 +1,191 @@
+---
+import { Icon } from 'astro-icon/components';
+import { useTranslations, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const gameStrings = {
+  score: t.playground.score,
+  best: t.playground.best,
+  time: t.playground.time,
+  gameOver: t.playground.gameOver,
+  restart: t.playground.restart,
+  start: t.playground.start,
+};
+---
+
+<section
+  id="playground"
+  class="mx-auto max-w-6xl scroll-mt-24 px-5 py-24 md:px-8 md:py-32"
+  data-game-strings={JSON.stringify(gameStrings)}
+>
+  <p class="eyebrow mb-4" data-reveal>{t.playground.eyebrow}</p>
+  <h2 class="display-lg max-w-3xl text-ink" data-reveal="lines">{t.playground.title}</h2>
+  <p class="mt-5 max-w-2xl text-base leading-relaxed text-muted md:text-lg" data-reveal>
+    {t.playground.subtitle}
+  </p>
+
+  <div class="card mt-10 overflow-hidden p-4 md:p-6" data-reveal>
+    <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex gap-5">
+        <span class="pixel-label text-ink">
+          {t.playground.score}: <span data-game-score class="text-accent">0</span>
+        </span>
+        <span class="pixel-label text-ink">
+          {t.playground.time}: <span data-game-time class="text-accent">30</span>
+        </span>
+        <span class="pixel-label hidden text-muted sm:inline">
+          {t.playground.best}: <span data-game-best>0</span>
+        </span>
+      </div>
+      <button type="button" class="btn btn-primary !py-2.5 !px-5 text-sm" data-game-start>
+        <Icon name="lucide:gamepad-2" class="h-4 w-4" />
+        <span data-game-start-label>{t.playground.start}</span>
+      </button>
+    </div>
+
+    <canvas
+      data-game-canvas
+      class="block aspect-[16/9] w-full touch-none rounded-xl border border-line sm:aspect-[2/1]"
+      role="img"
+      aria-label={t.playground.canvasLabel}
+    >
+    </canvas>
+
+    <p class="pixel-label mt-4 text-center text-muted">{t.playground.hint}</p>
+  </div>
+</section>
+
+{/* Overlay para el modo Konami (pantalla completa) */}
+<div
+  id="konami-overlay"
+  class="fixed inset-0 z-[80] hidden place-items-center bg-bg/95 p-4 backdrop-blur-sm"
+  role="dialog"
+  aria-modal="true"
+  aria-label={t.playground.canvasLabel}
+>
+  <div class="w-full max-w-4xl">
+    <div class="mb-4 flex items-center justify-between">
+      <span class="pixel-label text-accent">
+        {t.playground.score}: <span data-konami-score>0</span>
+        <span class="ml-6 text-ink">{t.playground.time}: <span data-konami-time>30</span></span>
+      </span>
+      <button
+        type="button"
+        data-konami-close
+        class="grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"
+        aria-label={t.playground.close}
+      >
+        <Icon name="lucide:x" class="h-5 w-5" />
+      </button>
+    </div>
+    <canvas
+      data-konami-canvas
+      class="block aspect-[16/9] w-full touch-none rounded-xl border border-accent"
+    >
+    </canvas>
+  </div>
+</div>
+
+<script>
+  import type { BoneGame } from '../lib/bone-game';
+
+  const section = document.getElementById('playground')!;
+  const strings = JSON.parse(section.dataset.gameStrings || '{}');
+
+  let game: BoneGame | null = null;
+  let konamiGame: BoneGame | null = null;
+  let GameClass: typeof BoneGame | null = null;
+
+  async function loadGame(): Promise<typeof BoneGame> {
+    if (!GameClass) {
+      GameClass = (await import('../lib/bone-game')).BoneGame;
+    }
+    return GameClass;
+  }
+
+  function wireHud(
+    g: BoneGame,
+    scoreEl: HTMLElement | null,
+    timeEl: HTMLElement | null,
+    bestEl?: HTMLElement | null
+  ) {
+    g.onScore = (s) => scoreEl && (scoreEl.textContent = String(s));
+    g.onTime = (t) => timeEl && (timeEl.textContent = String(Math.ceil(t)));
+    g.onEnd = (_s, best) => {
+      if (bestEl) bestEl.textContent = String(best);
+      const label = section.querySelector<HTMLElement>('[data-game-start-label]');
+      if (label) label.textContent = strings.restart;
+    };
+  }
+
+  // — juego embebido: se inicializa perezosamente al entrar en viewport —
+  const canvas = section.querySelector<HTMLCanvasElement>('[data-game-canvas]')!;
+  const io = new IntersectionObserver(
+    async (entries) => {
+      if (!entries[0].isIntersecting) return;
+      io.disconnect();
+      const Cls = await loadGame();
+      game = new Cls(canvas, strings);
+      const bestEl = section.querySelector<HTMLElement>('[data-game-best]');
+      if (bestEl) bestEl.textContent = String(game.getBest());
+      wireHud(
+        game,
+        section.querySelector('[data-game-score]'),
+        section.querySelector('[data-game-time]'),
+        bestEl
+      );
+    },
+    { rootMargin: '200px' }
+  );
+  io.observe(canvas);
+
+  section.querySelector('[data-game-start]')?.addEventListener('click', async () => {
+    if (!game) {
+      const Cls = await loadGame();
+      game = new Cls(canvas, strings);
+      wireHud(
+        game,
+        section.querySelector('[data-game-score]'),
+        section.querySelector('[data-game-time]'),
+        section.querySelector('[data-game-best]')
+      );
+    }
+    game.start();
+  });
+
+  // — modo Konami: overlay a pantalla completa —
+  const overlay = document.getElementById('konami-overlay')!;
+  const konamiCanvas = overlay.querySelector<HTMLCanvasElement>('[data-konami-canvas]')!;
+
+  function closeKonami() {
+    overlay.classList.add('hidden');
+    overlay.classList.remove('grid');
+    konamiGame?.destroy();
+    konamiGame = null;
+  }
+
+  window.addEventListener('codeka:konami', async () => {
+    overlay.classList.remove('hidden');
+    overlay.classList.add('grid');
+    const Cls = await loadGame();
+    konamiGame?.destroy();
+    konamiGame = new Cls(konamiCanvas, strings);
+    wireHud(
+      konamiGame,
+      overlay.querySelector('[data-konami-score]'),
+      overlay.querySelector('[data-konami-time]')
+    );
+    // pequeño delay para que se vea el toast antes de empezar
+    setTimeout(() => konamiGame?.start(), 700);
+  });
+
+  overlay.querySelector('[data-konami-close]')?.addEventListener('click', closeKonami);
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !overlay.classList.contains('hidden')) closeKonami();
+  });
+</script>

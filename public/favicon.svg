@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <rect width="16" height="16" fill="#0E0E12"/>
+  <!-- corazón pixel rosa Morci -->
+  <path fill="#F58EB1" d="M3 3h3v1h1v1h2V4h1V3h3v1h1v4h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v-1H6v-1H5v-1H4v-1H3V9H2V4h1z"/>
+  <path fill="#F4EFE7" d="M4 4h1v1H4z"/>
+</svg>

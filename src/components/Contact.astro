@@ -1,0 +1,161 @@
+---
+import { Icon } from 'astro-icon/components';
+import { useTranslations, EMAIL, FORMSPREE_ID, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="contact" class="mx-auto max-w-6xl scroll-mt-24 px-5 py-24 md:px-8 md:py-32">
+  <div class="grid gap-12 md:grid-cols-2">
+    <div>
+      <p class="eyebrow mb-4" data-reveal>{t.contact.eyebrow}</p>
+      <h2 class="display-lg text-ink" data-reveal="lines">{t.contact.title}</h2>
+      <p class="mt-5 max-w-md text-base leading-relaxed text-muted md:text-lg" data-reveal>
+        {t.contact.copy}
+      </p>
+
+      <div class="mt-8" data-reveal>
+        <p class="text-sm text-muted">{t.contact.emailLabel}</p>
+        <a
+          href={`mailto:${EMAIL}`}
+          class="link-underline mt-1 inline-block font-display text-xl font-medium text-accent md:text-2xl"
+        >
+          {EMAIL}
+        </a>
+      </div>
+
+      <ul class="mt-8 flex gap-3" data-reveal>
+        {
+          t.contact.socials.map((s: { label: string; url: string; icon: string }) => (
+            <li>
+              <a
+                href={s.url}
+                class="grid h-11 w-11 place-items-center rounded-full border border-line text-muted transition-all hover:-translate-y-0.5 hover:border-accent hover:text-accent"
+                aria-label={s.label}
+                rel="me noopener"
+              >
+                <Icon name={s.icon} class="h-5 w-5" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <form
+      id="contact-form"
+      class="card space-y-5 p-7"
+      data-formspree={FORMSPREE_ID}
+      data-email={EMAIL}
+      data-subject={t.contact.form.mailtoSubject}
+      data-sending={t.contact.form.sending}
+      data-success={t.contact.form.success}
+      data-error={t.contact.form.error}
+      data-reveal
+      novalidate
+    >
+      <div>
+        <label for="cf-name" class="mb-1.5 block text-sm font-medium text-ink">
+          {t.contact.form.name}
+        </label>
+        <input
+          id="cf-name"
+          name="name"
+          type="text"
+          required
+          autocomplete="name"
+          class="w-full rounded-xl border border-line bg-surface-2 px-4 py-3 text-ink placeholder:text-muted/60 focus:border-accent focus:outline-none"
+        />
+      </div>
+      <div>
+        <label for="cf-email" class="mb-1.5 block text-sm font-medium text-ink">
+          {t.contact.form.email}
+        </label>
+        <input
+          id="cf-email"
+          name="email"
+          type="email"
+          required
+          autocomplete="email"
+          class="w-full rounded-xl border border-line bg-surface-2 px-4 py-3 text-ink placeholder:text-muted/60 focus:border-accent focus:outline-none"
+        />
+      </div>
+      <div>
+        <label for="cf-message" class="mb-1.5 block text-sm font-medium text-ink">
+          {t.contact.form.message}
+        </label>
+        <textarea
+          id="cf-message"
+          name="message"
+          rows="5"
+          required
+          class="w-full resize-y rounded-xl border border-line bg-surface-2 px-4 py-3 text-ink placeholder:text-muted/60 focus:border-accent focus:outline-none"
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-full justify-center">
+        {t.contact.form.submit}
+        <Icon name="lucide:send" class="h-4 w-4" />
+      </button>
+
+      <p data-form-status role="status" aria-live="polite" class="hidden text-center text-sm"></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  // Envío sin <form> roto: Formspree si hay ID real; si no, fallback a mailto.
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  if (form) {
+    const status = form.querySelector<HTMLElement>('[data-form-status]')!;
+    const formspreeId = form.dataset.formspree || '';
+    const hasFormspree = formspreeId !== '' && !formspreeId.startsWith('[[');
+
+    const show = (msg: string, ok: boolean) => {
+      status.textContent = msg;
+      status.classList.remove('hidden');
+      status.style.color = ok ? 'var(--accent)' : 'var(--caramel)';
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const data = new FormData(form);
+
+      if (!hasFormspree) {
+        // fallback: abre el cliente de correo con el mensaje precargado
+        const body = encodeURIComponent(
+          `${data.get('name')} <${data.get('email')}>\n\n${data.get('message')}`
+        );
+        const subject = encodeURIComponent(form.dataset.subject || '');
+        window.location.href = `mailto:${form.dataset.email}?subject=${subject}&body=${body}`;
+        return;
+      }
+
+      const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      const original = btn.firstChild?.textContent ?? '';
+      btn.disabled = true;
+      show(form.dataset.sending || '…', true);
+      try {
+        const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
+          method: 'POST',
+          body: data,
+          headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        show(form.dataset.success || 'OK', true);
+        form.reset();
+      } catch {
+        show(form.dataset.error || 'Error', false);
+      } finally {
+        btn.disabled = false;
+        if (original) btn.firstChild!.textContent = original;
+      }
+    });
+  }
+</script>

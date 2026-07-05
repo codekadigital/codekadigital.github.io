@@ -1,0 +1,33 @@
+---
+import { useTranslations, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+{/* Overlay de carga: coreografía, no espera técnica. Se elimina solo (motion.ts). */}
+<div id="preloader" aria-hidden="true">
+  <div class="flex flex-col items-center gap-6">
+    <img
+      data-pre-morci
+      src="/morcilla.webp?v=6"
+      alt=""
+      width="120"
+      height="128"
+      class="pixelated w-24 md:w-28"
+      fetchpriority="high"
+    />
+    <div class="pixel-label text-accent" data-pre-counter>000</div>
+    <div class="h-[3px] w-40 overflow-hidden rounded-full bg-surface-2">
+      <div
+        data-pre-bar
+        class="h-full w-full origin-left scale-x-0 bg-accent"
+      >
+      </div>
+    </div>
+    <div class="pixel-label text-muted" data-pre-label>{t.preloader.loading}</div>
+  </div>
+</div>

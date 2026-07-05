@@ -1,0 +1,79 @@
+---
+import { Icon } from 'astro-icon/components';
+import MorcillaMascot from './MorcillaMascot.astro';
+import { useTranslations, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="hero" class="relative flex min-h-svh items-center overflow-hidden pt-24 pb-16">
+  {/* glow rosa muy sutil de fondo */}
+  <div
+    class="pointer-events-none absolute -top-40 right-[-10%] h-[32rem] w-[32rem] rounded-full bg-accent opacity-[0.06] blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="mx-auto grid w-full max-w-6xl items-center gap-12 px-5 md:grid-cols-[1.4fr_1fr] md:px-8">
+    <div>
+      <p class="eyebrow mb-5" data-hero-fade>
+        {t.hero.greeting} <span aria-hidden="true">↓</span>
+      </p>
+
+      <h1 class="display-xl text-ink" data-hero-title>{t.hero.name}</h1>
+
+      <p class="mt-5 text-base text-muted md:text-lg" data-hero-fade>
+        {t.hero.aka}
+        <span class="pixel-label ml-1 rounded-md border border-accent/40 bg-accent-soft px-2 py-1 text-accent">codeka</span>
+      </p>
+
+      <p class="display-md mt-5 text-accent" data-hero-fade>{t.hero.role}</p>
+
+      <ul class="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-muted" data-hero-fade>
+        {
+          t.hero.specialties.map((s: string, i: number) => (
+            <li class="flex items-center gap-3 text-base md:text-lg">
+              {i > 0 && <span class="text-accent" aria-hidden="true">·</span>}
+              {s}
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg" data-hero-fade>
+        {t.hero.tagline}
+      </p>
+
+      <div class="mt-9 flex flex-wrap items-center gap-4" data-hero-fade>
+        <a href="#contact" class="btn btn-primary">
+          {t.hero.ctaPrimary}
+          <Icon name="lucide:arrow-up-right" class="h-4 w-4" />
+        </a>
+        <a href="#projects" class="btn btn-ghost">{t.hero.ctaSecondary}</a>
+      </div>
+
+      <p class="mt-8 flex items-center gap-2 text-sm text-muted" data-hero-fade>
+        <Icon name="lucide:map-pin" class="h-3.5 w-3.5 text-accent" />
+        {t.hero.location}
+      </p>
+    </div>
+
+    <div class="mx-auto w-56 max-w-full sm:w-64 md:w-full md:max-w-xs" data-hero-mascot>
+      <MorcillaMascot lang={lang} />
+    </div>
+  </div>
+
+  <a
+    href="#about"
+    class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-muted transition-colors hover:text-accent md:flex"
+    aria-label={t.nav.about}
+    data-hero-fade
+  >
+    <span class="pixel-label">{t.hero.scrollHint}</span>
+    <Icon name="lucide:arrow-down" class="h-4 w-4 animate-bounce" />
+  </a>
+</section>
