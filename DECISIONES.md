@@ -28,6 +28,7 @@ Las que te afectan directamente están marcadas con ⚠️.
 
 - **Tipografía display: Space Grotesk → Syne** (elegida por Karem entre Syne/Unbounded/Sora). Pesos 500/700/800 self-host con `@fontsource/syne`. Se relajó el letter-spacing negativo (Syne ya tiene carácter propio) y el hero usa peso 800.
 - **Ilustración v2**: `morcilla-v2.png` (desde Descargas de Windows) reemplaza a la original; viene con transparencia nativa, así que `scripts/prepare-assets.mjs` ahora detecta alpha (>5% de píxeles transparentes) y omite la eliminación de fondo. Todos los assets regenerados con `npm run assets`.
+- **Sticker de Contacto** (recorte de Karem + Morcilla, fuente `scripts/karem-morcilla-sinfondo.png`): tratamiento pegatina con trazado rosa (4 `drop-shadow` ortogonales en cascada, clase `.sticker`) + pop de entrada con `back.out` (`[data-sticker]` en motion.ts) e inclinación base −2° en CSS para que sobreviva a `prefers-reduced-motion`. El "sin fondo" original traía fondo negro puro pegado (sin alfa): `scripts/prepare-sticker.mjs` lo separa por flood-fill desde bordes, borra el resto de silla de cuadros con una curva de recorte que respeta la oreja, y se queda solo con el componente principal (sin motas con trazado propio). `npm run assets` ahora regenera también foto y sticker.
 
 ## Diseño y animación
 

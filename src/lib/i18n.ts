@@ -167,6 +167,9 @@ const es = {
       { label: 'GitHub', url: 'https://github.com/codekadigital', icon: 'lucide:github' },
       { label: 'LinkedIn', url: 'https://www.linkedin.com/in/karem-quiroz/', icon: 'lucide:linkedin' },
     ],
+    stickerAlt:
+      'Karem sonriendo con Morcilla, su teckel negra y canela, en brazos — recorte estilo pegatina con borde rosa',
+    stickerCaption: '~ atentas a tu mensaje ~',
   },
   footer: {
     tagline: 'Hecho con Astro, GSAP y muchos huesitos.',
@@ -335,6 +338,9 @@ const en: typeof es = {
       { label: 'GitHub', url: 'https://github.com/codekadigital', icon: 'lucide:github' },
       { label: 'LinkedIn', url: 'https://www.linkedin.com/in/karem-quiroz/', icon: 'lucide:linkedin' },
     ],
+    stickerAlt:
+      'Karem smiling and holding Morcilla, her black-and-tan dachshund — sticker-style cutout with a pink outline',
+    stickerCaption: '~ awaiting your message ~',
   },
   footer: {
     tagline: 'Built with Astro, GSAP and plenty of tiny bones.',

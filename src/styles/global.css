@@ -142,6 +142,15 @@ body {
   image-rendering: pixelated;
 }
 
+/* ============ sticker (recorte con trazado de marca) ============ */
+/* Los drop-shadow se aplican en cascada, así que 4 ortogonales cubren
+   también las diagonales; el último añade una sombra suave de apoyo. */
+.sticker {
+  filter: drop-shadow(3px 0 0 var(--accent)) drop-shadow(-3px 0 0 var(--accent))
+    drop-shadow(0 3px 0 var(--accent)) drop-shadow(0 -3px 0 var(--accent))
+    drop-shadow(0 14px 24px rgb(0 0 0 / 0.3));
+}
+
 /* ============ enlaces animados ============ */
 .link-underline {
   position: relative;

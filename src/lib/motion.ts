@@ -194,6 +194,19 @@ function setupReveals() {
         onEnter: () => gsap.to(el, { autoAlpha: 1, y: 0, duration: 0.85, ease: EASE }),
       });
     });
+
+  // Stickers: pop de pegatina (escala + rotación con rebote). La inclinación
+  // base (-2°) vive en CSS sobre la imagen, así se conserva sin animaciones.
+  document.querySelectorAll<HTMLElement>('[data-sticker]').forEach((el) => {
+    gsap.set(el, { autoAlpha: 0, scale: 0.7, rotation: -8, transformOrigin: '50% 75%' });
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 88%',
+      once: true,
+      onEnter: () =>
+        gsap.to(el, { autoAlpha: 1, scale: 1, rotation: 0, duration: 0.7, ease: 'back.out(1.8)' }),
+    });
+  });
 }
 
 /* ---------- lenis + anclas ---------- */

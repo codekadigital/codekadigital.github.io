@@ -44,6 +44,20 @@ const t = useTranslations(lang);
           ))
         }
       </ul>
+
+      <figure class="mt-12 w-52 md:mt-14 md:w-60" data-sticker>
+        <img
+          src="/karem-morcilla-sticker.webp"
+          alt={t.contact.stickerAlt}
+          width="640"
+          height="622"
+          loading="lazy"
+          class="sticker block h-auto w-full -rotate-2 transition-transform duration-300 ease-out hover:rotate-1 hover:scale-[1.03]"
+        />
+        <figcaption class="pixel-label mt-4 whitespace-nowrap text-center text-muted">
+          {t.contact.stickerCaption}
+        </figcaption>
+      </figure>
     </div>
 
     <form
