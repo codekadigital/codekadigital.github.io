@@ -108,6 +108,12 @@ const es = {
     visit: 'Ver proyecto',
     items: [
       {
+        title: 'Balancea',
+        desc: 'PWA de bienestar con IA que adapta ejercicio, alimentación y hábitos a tu vida real: tus horarios (incluido turno nocturno), tu energía y tu tiempo. Planes semanales y ajuste diario generados con Claude.',
+        tags: ['AI Product', 'PWA', 'Next.js + Supabase'],
+        url: 'https://balancea-omega.vercel.app',
+      },
+      {
         title: 'Ópticas Tu Mirada',
         desc: 'MVP de la nueva web para la cadena de ópticas: one-page estática, moderna y responsive, con las tiendas reales y lista para validar.',
         tags: ['One-page', 'HTML/CSS/JS', 'Retail'],
@@ -278,6 +284,12 @@ const en: typeof es = {
     title: 'Selected work',
     visit: 'View project',
     items: [
+      {
+        title: 'Balancea',
+        desc: 'AI wellness PWA that adapts workouts, food and habits to your real life: your schedule (night shift included), your energy and your time. Weekly plans and daily adjustments generated with Claude.',
+        tags: ['AI Product', 'PWA', 'Next.js + Supabase'],
+        url: 'https://balancea-omega.vercel.app',
+      },
       {
         title: 'Ópticas Tu Mirada',
         desc: 'MVP for the optics chain’s new website: a modern, responsive static one-pager with real store data, ready to validate.',
