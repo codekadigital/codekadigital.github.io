@@ -26,3 +26,6 @@ pnpm-debug.log*
 # prompt original (privado, no publicar)
 PROMPT_Claude_Code_Web_Karem_Quiroz_Codeka.md
 *Zone.Identifier
+
+# configuración local del agente
+.claude/
