@@ -18,27 +18,16 @@ const t = useTranslations(lang);
     </div>
 
     <aside class="space-y-6">
-      <figure class="group" data-reveal>
-        <div class="relative overflow-hidden rounded-2xl border border-line">
-          <img
-            src="/karem-morcilla-duo.webp"
-            alt={t.about.photoAlt}
-            width="920"
-            height="1185"
-            loading="lazy"
-            class="block h-auto w-full"
-          />
-          <img
-            src="/karem-morcilla-color.webp"
-            alt=""
-            width="920"
-            height="1185"
-            loading="lazy"
-            aria-hidden="true"
-            class="pointer-events-none absolute inset-0 block h-auto w-full opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
-          />
-        </div>
-        <figcaption class="pixel-label mt-3 text-center text-muted">
+      <figure data-sticker>
+        <img
+          src="/karem-morcilla-sticker.webp"
+          alt={t.about.photoAlt}
+          width="640"
+          height="622"
+          loading="lazy"
+          class="sticker mx-auto block h-auto w-full max-w-xs rotate-2 transition-transform duration-300 ease-out hover:-rotate-1 hover:scale-[1.03]"
+        />
+        <figcaption class="pixel-label mt-4 whitespace-nowrap text-center text-muted">
           {t.about.photoCaption}
         </figcaption>
       </figure>

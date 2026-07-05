@@ -10,7 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "assets": "node scripts/prepare-assets.mjs scripts/morcilla-original.png public && node scripts/prepare-photo.mjs scripts/karem-morcilla-original.jpg public && node scripts/prepare-sticker.mjs scripts/karem-morcilla-sinfondo.png public",
+    "assets": "node scripts/prepare-assets.mjs scripts/morcilla-original.png public && node scripts/prepare-sticker.mjs scripts/karem-morcilla-sinfondo.png public",
     "astro": "astro"
   },
   "dependencies": {
