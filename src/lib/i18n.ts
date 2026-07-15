@@ -108,6 +108,12 @@ const es = {
     visit: 'Ver proyecto',
     items: [
       {
+        title: 'Fisioterapia Bienestar Tacna',
+        desc: 'Web para un centro de fisioterapia real en Tacna: identidad construida desde su logo (azul, verde lima y blanco), fotos y reseñas de su propio Instagram, reserva de citas por WhatsApp sin backend y despliegue automático.',
+        tags: ['Astro + Tailwind', 'Salud', 'Cliente real'],
+        url: 'https://codekadigital.github.io/bienestar-web/',
+      },
+      {
         title: 'Balancea',
         desc: 'PWA de bienestar con IA que adapta ejercicio, alimentación y hábitos a tu vida real: tus horarios (incluido turno nocturno), tu energía y tu tiempo. Planes semanales y ajuste diario generados con Claude.',
         tags: ['AI Product', 'PWA', 'Next.js + Supabase'],
@@ -284,6 +290,12 @@ const en: typeof es = {
     title: 'Selected work',
     visit: 'View project',
     items: [
+      {
+        title: 'Fisioterapia Bienestar Tacna',
+        desc: 'Website for a real physiotherapy clinic in Tacna: identity built from its logo (blue, lime green and white), photos and reviews from its own Instagram, backend-free WhatsApp booking and automatic deploys.',
+        tags: ['Astro + Tailwind', 'Health', 'Real client'],
+        url: 'https://codekadigital.github.io/bienestar-web/',
+      },
       {
         title: 'Balancea',
         desc: 'AI wellness PWA that adapts workouts, food and habits to your real life: your schedule (night shift included), your energy and your time. Weekly plans and daily adjustments generated with Claude.',
