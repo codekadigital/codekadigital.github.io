@@ -108,6 +108,12 @@ const es = {
     visit: 'Ver proyecto',
     items: [
       {
+        title: 'Feeling the Trip',
+        desc: 'Web bilingüe para una pareja de filmmakers de viaje: diseño de cuaderno de expedición oceanográfica con medidor de profundidad que baja con el scroll, fotografía a pantalla completa y cero JavaScript de framework.',
+        tags: ['Astro + Tailwind', 'Bilingüe ES/EN', 'Travel'],
+        url: 'https://codekadigital.github.io/feelingthetrip/',
+      },
+      {
         title: 'Fisioterapia Bienestar Tacna',
         desc: 'Web para un centro de fisioterapia real en Tacna: identidad construida desde su logo (azul, verde lima y blanco), fotos y reseñas de su propio Instagram, reserva de citas por WhatsApp sin backend y despliegue automático.',
         tags: ['Astro + Tailwind', 'Salud', 'Cliente real'],
@@ -290,6 +296,12 @@ const en: typeof es = {
     title: 'Selected work',
     visit: 'View project',
     items: [
+      {
+        title: 'Feeling the Trip',
+        desc: 'Bilingual website for a travel filmmaking duo: an oceanographic expedition-journal design with a depth gauge that dives as you scroll, full-bleed photography and zero framework JavaScript.',
+        tags: ['Astro + Tailwind', 'Bilingual ES/EN', 'Travel'],
+        url: 'https://codekadigital.github.io/feelingthetrip/',
+      },
       {
         title: 'Fisioterapia Bienestar Tacna',
         desc: 'Website for a real physiotherapy clinic in Tacna: identity built from its logo (blue, lime green and white), photos and reviews from its own Instagram, backend-free WhatsApp booking and automatic deploys.',
